@@ -5,9 +5,9 @@ import styles from './Spinner.module.css';
 
 const override = css`
   position: fixed;
-  top: 10%;
-  left: 45%;
-  transform: translate(-10%; -45%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%; -50%);
 `;
 
 const Spinner = () => (

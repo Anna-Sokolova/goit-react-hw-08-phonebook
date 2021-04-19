@@ -1,39 +1,45 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component, Suspense, lazy } from 'react';
+import { Switch, Route } from 'react-router-dom';
+// import { connect } from 'react-redux';
+
+//components
+import Container from './components/Container';
+import AppBar from './components/AppBar';
 import Spinner from './components/Spinner';
-import Title from './components/Title';
-import ContactForm from './components/ContactForm';
-import ContactList from './components/ContactList';
-import Filter from './components/Filter';
-import operationContacts from './redux/contacts/contacts-operations';
-import selectorsContacts from './redux/contacts/contacts-selectors';
 
+//routes
+import routes from './routes';
+
+//dinamick pages грузятся асинхронно!!!
+const HomePage = lazy(() =>
+  import('./pages/HomePage' /* webpackChunkName: "home-page" */),
+);
+const LoginPage = lazy(() =>
+  import('./pages/LoginPage' /* webpackChunkName: "login-page" */),
+);
+const RegisterPage = lazy(() =>
+  import('./pages/RegisterPage' /* webpackChunkName: "register-page" */),
+);
+const ContactsPage = lazy(() =>
+  import('./pages/ContactsPage' /* webpackChunkName: "contacts-page" */),
+);
 class App extends Component {
-
-  componentDidMount() {
-    this.props.fetchAllContacts();
-  }
-
   render() {
     return (
-      <div className="container">
-        <Title title="Phonebook" />
-        <ContactForm />
-        <Filter />
-        <Title title="Contacts" />
-        <ContactList />
-        {this.props.isloadingContacts && <Spinner />}
-      </div>
+      <>
+        <AppBar />
+
+        <Suspense fallback={<Spinner />}>
+          <Switch>
+            <Route path={routes.home} exact component={HomePage} />
+            <Route path={routes.login} component={LoginPage} />
+            <Route path={routes.register} component={RegisterPage} />
+            <Route path={routes.contacts} component={ContactsPage} />
+          </Switch>
+        </Suspense>
+      </>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  isloadingContacts: selectorsContacts.getLoading(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchAllContacts: () => dispatch(operationContacts.fetchContacts()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
