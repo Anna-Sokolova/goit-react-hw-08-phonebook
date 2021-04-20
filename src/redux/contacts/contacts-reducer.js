@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import contactActions from './contacts-actions';
 
-//destructions
+//destructuring
 const {
   fetchContactRequest,
   fetchContactSuccess,
