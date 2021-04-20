@@ -5,13 +5,12 @@ import AuthNav from '../AuthNav';
 import UserMenu from '../UserMenu/UserMenu';
 import styles from './AppBar.module.css';
 
-const AppBar = () => (
+const AppBar = ({ isAuthenticated }) => (
   <header className={styles.header}>
     <Container>
       <div className={styles.wrapper}>
         <Navigation />
-        <AuthNav />
-        <UserMenu />
+        {isAuthenticated ? <UserMenu /> : <AuthNav />}
       </div>
     </Container>
   </header>

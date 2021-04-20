@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 // import { connect } from 'react-redux';
 
 //components
-import Container from './components/Container';
 import AppBar from './components/AppBar';
 import Spinner from './components/Spinner';
 
