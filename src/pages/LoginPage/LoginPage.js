@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Title from '../../components/Title';
+import operationsAuth from '../../redux/auth/auth-operations';
 import styles from './LoginPage.module.css';
 
 class LoginPage extends Component {
@@ -37,7 +39,7 @@ class LoginPage extends Component {
               <label className={styles.label}>
                 Почта
                 <input
-                className={styles.formInput}
+                  className={styles.formInput}
                   type="email"
                   name="email"
                   placeholder="Enter email"
@@ -50,7 +52,7 @@ class LoginPage extends Component {
               <label className={styles.label}>
                 Пароль
                 <input
-                className={styles.formInput}
+                  className={styles.formInput}
                   type="password"
                   name="password"
                   placeholder="Enter password"
@@ -71,4 +73,8 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+const mapDispatchToProps = dispatch => ({
+  onLogin: data => dispatch(operationsAuth.logIn(data)),
+});
+
+export default connect(null, mapDispatchToProps)(LoginPage);

@@ -15,7 +15,7 @@ const token = {
 /* Создать нового пользователя
  * POST @ /users/signup
  * body { name, email, password }
- * credentials - это сам стейт ({ name, email, password }), который мы передаем
+ * credentials - это сам стейт ({ name, email, password }), который мы передаем с формы
  * После успешной регистрации добавляем токен в HTTP-заголовок
  */
 const register = credentials => dispatch => {
@@ -34,10 +34,20 @@ const register = credentials => dispatch => {
  * POST @ /users/login
  * body:
  *    { email, password }
- *
+ * credentials - это сам стейт ({ email, password }), который мы передаем с формы
  * После успешного логина добавляем токен в HTTP-заголовок
  */
-const logIn = credentials => async dispatch => {};
+const logIn = credentials => async dispatch => {
+  dispatch(authActions.loginAuthRequest());
+
+  axios
+    .post('/users/login', credentials)
+    .then(response => {
+      console.log(response);
+      dispatch(authActions.loginAuthSuccess(response.data));
+    })
+    .catch(error => dispatch(authActions.loginAuthError(error.message)));
+};
 
 /* Разлогинить пользователя
  * POST @ /users/logout

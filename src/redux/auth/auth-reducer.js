@@ -26,20 +26,26 @@ const initialState = {
 
 const userReducer = createReducer(initialState, {
   [registerAuthSuccess]: (_, action) => action.payload.user,
+  [loginAuthSuccess]: (_, action) => action.payload.user,
 });
 
 const tokenReducer = createReducer(null, {
   [registerAuthSuccess]: (_, action) => action.payload.token,
+  [loginAuthSuccess]: (_, action) => action.payload.token,
 });
 
 const loadingReducer = createReducer(false, {
   [registerAuthRequest]: () => true,
   [registerAuthSuccess]: () => false,
   [registerAuthError]: () => false,
+  [loginAuthRequest]: () => true,
+  [loginAuthSuccess]: () => false,
+  [loginAuthError]: () => false,
 });
 
 const errorReducer = createReducer(null, {
   [registerAuthError]: (_, action) => console.log(action.payload),
+  [loginAuthError]: (_, action) => console.log(action.payload),
 });
 
 const authReducer = combineReducers({

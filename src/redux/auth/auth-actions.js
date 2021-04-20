@@ -1,21 +1,21 @@
 import { createAction } from '@reduxjs/toolkit';
 
-//экшены для логинизации
-const loginAuthRequest = createAction('auth/loginRequest');
-const loginAuthSuccess = createAction('auth/loginSuccess');
-const loginAuthError = createAction('auth/loginError');
-
-//экшены для регистрации
+//1.экшены для регистрации
 const registerAuthRequest = createAction('auth/registerRequest');
 const registerAuthSuccess = createAction('auth/registerSuccess');
 const registerAuthError = createAction('auth/registerError');
 
-//экшены для кнопки Выйти
+//2.экшены для логинизации
+const loginAuthRequest = createAction('auth/loginRequest');
+const loginAuthSuccess = createAction('auth/loginSuccess');
+const loginAuthError = createAction('auth/loginError');
+
+//3.экшены для кнопки Выйти (разлогиниться)
 const logoutAuthRequest = createAction('auth/logoutRequest');
 const logoutAuthSuccess = createAction('auth/logoutSuccess');
 const logoutAuthError = createAction('auth/logoutError');
 
-//экшены для получения текущего юзера или re-fresh
+//4.экшены для получения текущего юзера или re-fresh
 const getCurrentUserRequest = createAction('auth/getCurrentUserRequest');
 const getCurrentUserSuccess = createAction('auth/getCurrentUserSuccess');
 const getCurrentUserError = createAction('auth/getCurrentUserError');
