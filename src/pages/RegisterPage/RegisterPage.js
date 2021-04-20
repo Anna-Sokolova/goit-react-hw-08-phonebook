@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Title from '../../components/Title';
+import operationsAuth from '../../redux/auth/auth-operations';
 import styles from './RegisterPage.module.css';
 
 class RegisterPage extends Component {
@@ -9,7 +11,7 @@ class RegisterPage extends Component {
     password: '',
   };
 
-  handleChange = e => {
+  handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
@@ -38,12 +40,12 @@ class RegisterPage extends Component {
               <label className={styles.label}>
                 Имя
                 <input
-                className={styles.formInput}
+                  className={styles.formInput}
                   type="text"
                   name="name"
                   placeholder="Enter name"
                   value={name}
-                  onChange={this.handleChange}
+                  onChange={this.handleInputChange}
                   required
                 />
               </label>
@@ -51,12 +53,12 @@ class RegisterPage extends Component {
               <label className={styles.label}>
                 Почта
                 <input
-                className={styles.formInput}
+                  className={styles.formInput}
                   type="email"
                   name="email"
                   placeholder="Enter email"
                   value={email}
-                  onChange={this.handleChange}
+                  onChange={this.handleInputChange}
                   required
                 />
               </label>
@@ -64,12 +66,12 @@ class RegisterPage extends Component {
               <label className={styles.label}>
                 Пароль
                 <input
-                className={styles.formInput}
+                  className={styles.formInput}
                   type="password"
                   name="password"
                   placeholder="Enter password"
                   value={password}
-                  onChange={this.handleChange}
+                  onChange={this.handleInputChange}
                   required
                 />
               </label>
@@ -85,4 +87,13 @@ class RegisterPage extends Component {
   }
 }
 
-export default RegisterPage;
+const mapDispatchToProps = dispatch => ({
+  onRegister: data => dispatch(operationsAuth.register(data)),
+});
+
+//сокращенная запись как вариант
+// const mapDispatchToProps = {
+//   onRegister: dispatch(operationsAuth.register),
+// };
+
+export default connect(null, mapDispatchToProps)(RegisterPage);

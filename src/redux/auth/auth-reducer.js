@@ -24,15 +24,28 @@ const initialState = {
   email: null,
 };
 
-const userReducer = createReducer(initialState, {});
+const userReducer = createReducer(initialState, {
+  [registerAuthSuccess]: (_, action) => action.payload.user,
+});
 
-const tokenReducer = createReducer(null, {});
+const tokenReducer = createReducer(null, {
+  [registerAuthSuccess]: (_, action) => action.payload.token,
+});
 
-const errorReducer = createReducer(null, {});
+const loadingReducer = createReducer(false, {
+  [registerAuthRequest]: () => true,
+  [registerAuthSuccess]: () => false,
+  [registerAuthError]: () => false,
+});
+
+const errorReducer = createReducer(null, {
+  [registerAuthError]: (_, action) => console.log(action.payload),
+});
 
 const authReducer = combineReducers({
   user: userReducer,
   token: tokenReducer,
+  loading: loadingReducer,
   error: errorReducer,
 });
 
