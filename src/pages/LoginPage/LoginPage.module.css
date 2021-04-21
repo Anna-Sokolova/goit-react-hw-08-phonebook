@@ -66,10 +66,10 @@ label {
   float: none;
   font-weight: bold;
   margin-top: 20px;
-  padding: 12px 12px;
+  padding: 5px 5px;
   -webkit-appearance: none;
 }
 
 .btnSubmit:hover {
-  background-color: #e0e0e0;
+  background-color: #f8b2ef;
 }

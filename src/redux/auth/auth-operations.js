@@ -25,6 +25,7 @@ const register = credentials => dispatch => {
     .post('/users/signup', credentials)
     .then(response => {
       // console.log(response);
+      token.set(response.data.token);
       dispatch(authActions.registerAuthSuccess(response.data));
     })
     .catch(error => dispatch(authActions.registerAuthError(error.message)));
@@ -37,13 +38,14 @@ const register = credentials => dispatch => {
  * credentials - это сам стейт ({ email, password }), который мы передаем с формы
  * После успешного логина добавляем токен в HTTP-заголовок
  */
-const logIn = credentials => async dispatch => {
+const logIn = credentials => dispatch => {
   dispatch(authActions.loginAuthRequest());
 
   axios
     .post('/users/login', credentials)
     .then(response => {
-      console.log(response);
+      // console.log(response);
+      token.set(response.data.token);
       dispatch(authActions.loginAuthSuccess(response.data));
     })
     .catch(error => dispatch(authActions.loginAuthError(error.message)));
@@ -56,7 +58,18 @@ const logIn = credentials => async dispatch => {
  *
  * 1. После успешного логаута, удаляем токен из HTTP-заголовка
  */
-const logOut = () => async dispatch => {};
+const logOut = () => dispatch => {
+  dispatch(authActions.logoutAuthRequest());
+
+  axios
+    .post('/users/logout')
+    .then(() => {
+      // console.log(response);
+      token.unset();
+      dispatch(authActions.logoutAuthSuccess());
+    })
+    .catch(error => dispatch(authActions.logoutAuthError(error.message)));
+};
 
 /* Получить инфу о текущем пользователе
  * GET @ /users/current
