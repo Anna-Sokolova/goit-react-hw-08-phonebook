@@ -19,8 +19,8 @@ class ContactsPage extends Component {
       <Container>
         <Title title="Phonebook" />
         <ContactForm />
-        <Filter />
-        <Title title="Contacts" />
+        {this.props.contacts.length > 0 && <Title title="Contacts" />}
+        {this.props.contacts.length > 1 && <Filter />}
         <ContactList />
         {this.props.isloadingContacts && <Spinner />}
       </Container>
@@ -29,6 +29,7 @@ class ContactsPage extends Component {
 }
 
 const mapStateToProps = state => ({
+  contacts: selectorsContacts.getAllContacts(state),
   isloadingContacts: selectorsContacts.getLoading(state),
 });
 

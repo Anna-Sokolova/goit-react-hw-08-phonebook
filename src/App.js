@@ -1,7 +1,7 @@
 import React, { Component, Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
-// import { connect } from 'react-redux';
-
+import { connect } from 'react-redux';
+import authOperations from './redux/auth/auth-operations';
 //components
 import AppBar from './components/AppBar';
 import Spinner from './components/Spinner';
@@ -23,6 +23,10 @@ const ContactsPage = lazy(() =>
   import('./pages/ContactsPage' /* webpackChunkName: "contacts-page" */),
 );
 class App extends Component {
+  componentDidMount() {
+    this.props.onGetCurrentUser();
+  }
+
   render() {
     return (
       <>
@@ -41,4 +45,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  onGetCurrentUser: () => dispatch(authOperations.getCurrentUser()),
+});
+
+export default connect(null, mapDispatchToProps)(App);
