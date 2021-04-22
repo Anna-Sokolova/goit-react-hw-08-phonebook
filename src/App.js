@@ -5,7 +5,8 @@ import authOperations from './redux/auth/auth-operations';
 //components
 import AppBar from './components/AppBar';
 import Spinner from './components/Spinner';
-
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 //routes
 import routes from './routes';
 
@@ -35,9 +36,9 @@ class App extends Component {
         <Suspense fallback={<Spinner />}>
           <Switch>
             <Route path={routes.home} exact component={HomePage} />
-            <Route path={routes.login} component={LoginPage} />
-            <Route path={routes.register} component={RegisterPage} />
-            <Route path={routes.contacts} component={ContactsPage} />
+            <PublicRoute path={routes.login} restricted component={LoginPage} />
+            <PublicRoute path={routes.register} restricted component={RegisterPage} />
+            <PrivateRoute path={routes.contacts} component={ContactsPage} />
           </Switch>
         </Suspense>
       </>
