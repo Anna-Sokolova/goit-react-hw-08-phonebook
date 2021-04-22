@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Container from '../../components/Container';
 import Spinner from '../../components/Spinner';
 import Title from '../../components/Title';
 import ContactForm from '../../components/ContactForm';
@@ -16,14 +15,14 @@ class ContactsPage extends Component {
 
   render() {
     return (
-      <Container>
+      <>
         <Title title="Phonebook" />
         <ContactForm />
         {this.props.contacts.length > 0 && <Title title="Contacts" />}
         {this.props.contacts.length > 1 && <Filter />}
         <ContactList />
         {this.props.isloadingContacts && <Spinner />}
-      </Container>
+      </>
     );
   }
 }

@@ -21,9 +21,23 @@ class RegisterPage extends Component {
 
     this.props.onRegister(this.state);
 
-    this.setState({ name: '', email: '', password: '' });
+    this.reset();
+
+    alert(`
+    Спасибо за регистрацию!
+    Логин: ${this.state.name}
+    Почта: ${this.state.email}
+  `);
   };
 
+  reset = () => {
+    this.setState({
+      name: '',
+      email: '',
+      password: '',
+    });
+  };
+  
   render() {
     const { name, email, password } = this.state;
 

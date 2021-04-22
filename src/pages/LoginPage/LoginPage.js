@@ -18,9 +18,21 @@ class LoginPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
+    if (this.state.email.trim() === '' || this.state.password.trim() === '') {
+      alert('Please enter valid information!');
+      this.reset();
+      return;
+    }
     this.props.onLogin(this.state);
 
-    this.setState({ email: '', password: '' });
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState({
+      email: '',
+      password: '',
+    });
   };
 
   render() {

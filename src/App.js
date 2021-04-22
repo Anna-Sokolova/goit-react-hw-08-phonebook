@@ -5,10 +5,11 @@ import authOperations from './redux/auth/auth-operations';
 //components
 import AppBar from './components/AppBar';
 import Spinner from './components/Spinner';
-import PrivateRoute from './components/PrivateRoute';
-import PublicRoute from './components/PublicRoute';
+import Container from './components/Container';
 //routes
 import routes from './routes';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 
 //dinamick pages грузятся асинхронно!!!
 const HomePage = lazy(() =>
@@ -32,15 +33,25 @@ class App extends Component {
     return (
       <>
         <AppBar />
-
-        <Suspense fallback={<Spinner />}>
-          <Switch>
-            <Route path={routes.home} exact component={HomePage} />
-            <PublicRoute path={routes.login} restricted component={LoginPage} />
-            <PublicRoute path={routes.register} restricted component={RegisterPage} />
-            <PrivateRoute path={routes.contacts} component={ContactsPage} />
-          </Switch>
-        </Suspense>
+        
+        <Container>
+          <Suspense fallback={<Spinner />}>
+            <Switch>
+              <Route path={routes.home} exact component={HomePage} />
+              <PublicRoute
+                path={routes.login}
+                restricted
+                component={LoginPage}
+              />
+              <PublicRoute
+                path={routes.register}
+                restricted
+                component={RegisterPage}
+              />
+              <PrivateRoute path={routes.contacts} component={ContactsPage} />
+            </Switch>
+          </Suspense>
+        </Container>
       </>
     );
   }
