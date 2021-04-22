@@ -1,8 +1,7 @@
 import axios from 'axios';
 import contactActions from './contacts-actions';
 
-// axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
-
+//получение всех контактов
 const fetchContacts = () => dispatch => {
   dispatch(contactActions.fetchContactRequest());
 
@@ -12,6 +11,7 @@ const fetchContacts = () => dispatch => {
     .catch(error => dispatch(contactActions.fetchContactError(error.message)));
 };
 
+//создание нового контакта
 const addContact = data => dispatch => {
   const contact = {
     name: data.name,
@@ -26,6 +26,7 @@ const addContact = data => dispatch => {
     .catch(error => dispatch(contactActions.addContactError(error.message)));
 };
 
+//удаление контакта
 const deleteContact = contactId => dispatch => {
   dispatch(contactActions.deleteContactRequest());
 

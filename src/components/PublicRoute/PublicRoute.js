@@ -16,7 +16,7 @@ const PublicRoute = ({
     {...routeProps}
     render={props =>
       isAuthenticated && routeProps.restricted ? (
-        <Redirect to={routes.home} />
+        <Redirect to={routes.contacts} />
       ) : (
         <Component {...props} />
       )

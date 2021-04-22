@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Title from '../../components/Title';
+import Spinner from '../../components/Spinner';
 import operationsAuth from '../../redux/auth/auth-operations';
+import selectorsAuth from '../../redux/auth/auth-selectors';
 import styles from './RegisterPage.module.css';
 
 class RegisterPage extends Component {
@@ -37,12 +39,13 @@ class RegisterPage extends Component {
       password: '',
     });
   };
-  
+
   render() {
     const { name, email, password } = this.state;
 
     return (
       <>
+        {this.props.isLoadingUser && <Spinner />}
         <Title title="Регистрация пользователя" />
         <div className={styles.registerForm}>
           <fieldset>
@@ -101,6 +104,10 @@ class RegisterPage extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  isLoadingUser: selectorsAuth.getLoading(state),
+});
+
 const mapDispatchToProps = dispatch => ({
   onRegister: data => dispatch(operationsAuth.register(data)),
 });
@@ -110,4 +117,4 @@ const mapDispatchToProps = dispatch => ({
 //   onRegister: dispatch(operationsAuth.register),
 // };
 
-export default connect(null, mapDispatchToProps)(RegisterPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

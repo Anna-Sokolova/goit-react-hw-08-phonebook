@@ -1,19 +1,15 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import authActions from './auth-actions';
-
+import { loadingReducer } from '../loadingReducer';
+import { errorReducer } from '../errorReducer';
 //destructuring
 const {
-  loginAuthRequest,
   loginAuthSuccess,
   loginAuthError,
-  registerAuthRequest,
   registerAuthSuccess,
   registerAuthError,
-  logoutAuthRequest,
   logoutAuthSuccess,
-  logoutAuthError,
-  getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
 } = authActions;
@@ -48,30 +44,6 @@ const isAuthenticatedReducer = createReducer(false, {
   [loginAuthError]: () => false,
   [getCurrentUserError]: () => false,
   [logoutAuthSuccess]: () => false,
-});
-
-//редьюсер для спиннера
-const loadingReducer = createReducer(false, {
-  [registerAuthRequest]: () => true,
-  [registerAuthSuccess]: () => false,
-  [registerAuthError]: () => false,
-  [loginAuthRequest]: () => true,
-  [loginAuthSuccess]: () => false,
-  [loginAuthError]: () => false,
-  [logoutAuthRequest]: () => true,
-  [logoutAuthSuccess]: () => false,
-  [logoutAuthError]: () => false,
-  [getCurrentUserRequest]: () => true,
-  [getCurrentUserSuccess]: () => false,
-  [getCurrentUserError]: () => false,
-});
-
-//редьюсер для обработки ошибки
-const errorReducer = createReducer(null, {
-  [registerAuthError]: (_, action) => console.log(action.payload),
-  [loginAuthError]: (_, action) => console.log(action.payload),
-  [logoutAuthError]: (_, action) => console.log(action.payload),
-  [getCurrentUserError]: (_, action) => console.log(action.payload),
 });
 
 const authReducer = combineReducers({

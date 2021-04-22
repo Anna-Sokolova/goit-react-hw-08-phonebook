@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Title from '../../components/Title';
+import Spinner from '../../components/Spinner';
 import operationsAuth from '../../redux/auth/auth-operations';
+import selectorsAuth from '../../redux/auth/auth-selectors';
 import styles from './LoginPage.module.css';
 
 class LoginPage extends Component {
@@ -40,6 +42,7 @@ class LoginPage extends Component {
 
     return (
       <>
+        {this.props.isLoadingUser && <Spinner />}
         <Title title="Авторизация пользователя" />
         <div className={styles.loginForm}>
           <fieldset>
@@ -85,8 +88,12 @@ class LoginPage extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  isLoadingUser: selectorsAuth.getLoading(state),
+});
+
 const mapDispatchToProps = dispatch => ({
   onLogin: data => dispatch(operationsAuth.logIn(data)),
 });
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
